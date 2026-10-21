@@ -46,11 +46,17 @@ See the [official installation guide](https://openequella.github.io/gettingstart
 for the institution import workflow. The guide's Java 8 prerequisite is old;
 this release's Docker configuration uses Java 21.
 
-If **Install** hangs in VS Code's integrated browser, open
-<http://localhost:8082/admin/> in a regular browser and submit the form once.
+The admin UI loads stylesheets from `fonts.googleapis.com`. If those requests
+hang, they can block JavaScript execution, including form submission and the
+system setup polling loop. Allow access to Google Fonts or block those requests
+in your browser so they fail promptly instead of remaining pending. Blocking
+fonts may change typography or icon appearance; it does not modify repository data.
+Switching browsers only helps if the other browser can complete or reject those requests.
+
 During system setup, openEQUELLA briefly restarts its embedded web server.
-If the setup screen does not advance afterward, revisit the admin URL and
-log in using the system password you just set to continue database migrations.
+After system setup, open **Databases** and click **Initialise** for the default
+schema before creating or importing an institution. If prompted to log in,
+use the system password you just set.
 
 ## Operate
 
