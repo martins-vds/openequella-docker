@@ -49,6 +49,11 @@ Import it into the default database, using
 `http://localhost:8082/your-institution/` as its URL. Set its own administrator
 password; the institution superuser is `TLE_ADMINISTRATOR`. The admin page
 is not itself a content repository.
+Do not retain the template's `http://localhost:8080/vanilla/` URL: this stack
+publishes openEQUELLA on port 8082. If already imported, go to
+**Institutions → Edit → URL → Unlock**, change it to
+`http://localhost:8082/vanilla/`, and save. Changing only the browser address
+is insufficient because openEQUELLA matches requests against the saved URL.
 
 See the [official installation guide](https://openequella.github.io/gettingstarted/InstallingEquella.html)
 for the institution import workflow. The guide's Java 8 prerequisite is old;
