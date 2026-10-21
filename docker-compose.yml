@@ -1,4 +1,15 @@
 services:
+  smtp4dev:
+    image: rnwood/smtp4dev:v3
+    restart: unless-stopped
+    environment:
+      ServerOptions__Urls: http://*:80
+      ServerOptions__HostName: smtp4dev
+    ports:
+      - "127.0.0.1:5082:80"
+    volumes:
+      - smtp4dev_data:/smtp4dev
+
   equella-db:
     image: postgres:15-alpine
     restart: unless-stopped
@@ -34,14 +45,17 @@ services:
     depends_on:
       equella-db:
         condition: service_healthy
+      smtp4dev:
+        condition: service_started
     healthcheck:
-      test: ["CMD", "curl", "--fail", "--silent", "--output", "/dev/null", "http://localhost:8080/admin/"]
+      test: ["CMD", "curl", "--fail", "--silent", "--output", "/dev/null", "--header", "Host: localhost:8082", "http://localhost:8080/admin/"]
       interval: 30s
       timeout: 10s
       start_period: 180s
       retries: 10
 
 volumes:
+  smtp4dev_data:
   postgres_repository_data:
   openequella_filestore:
   openequella_freetext:
