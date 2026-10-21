@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  # Database Service Core Layer
+  equella-db:
+    image: postgres:15-alpine
+    container_name: equella_postgres_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: equella_admin
+      POSTGRES_PASSWORD: SecretSecurePasswordChangeMe99
+      POSTGRES_DB: openequella_repo
+    volumes:
+      - postgres_repository_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U equella_admin -d openequella_repo"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # openEQUELLA LOR Application Engine
+  openequella:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: openequella_app_engine
+    restart: unless-stopped
+    ports:
+      - "8080:8080" # Web access gateway port
+      - "3000:3000" # Administrative administration proxy layer port
+    environment:
+      # Inject connection configuration directly
+      - EQ_DB_URL=jdbc:postgresql://equella-db:5432/openequella_repo
+      - EQ_DB_USER=equella_admin
+      - EQ_DB_PASSWORD=SecretSecurePasswordChangeMe99
+    volumes:
+      - openequella_filestore:/opt/openequella/filestore
+    depends_on:
+      equella-db:
+        condition: service_healthy
+
+volumes:
+  postgres_repository_data:
+  openequella_filestore:
