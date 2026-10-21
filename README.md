@@ -37,10 +37,18 @@ password blank, and do not enable TLS. For local evaluation, administrator
 and no-reply addresses can be `admin@openequella.local` and
 `no-reply@openequella.local`. smtp4dev captures mail rather than delivering it
 to real recipients; view captured messages at <http://localhost:5082/>.
-Create or import an institution through
-Institution Management, using `http://localhost:8082/your-institution/` as its
-URL. Set its own administrator password; the institution superuser is
-`TLE_ADMINISTRATOR`. The admin page is not itself a content repository.
+Provision a new institution using **Import institution**; the server admin UI
+does not offer a separate blank-institution creation action. The official
+quick start provides a
+[Vanilla Reference Institution archive](https://raw.githubusercontent.com/openequella/openequella.github.io/master/guides/6.4VanillaReferenceInstitution.tgz)
+to use as a starting template. A copy is included as
+[6.4VanillaReferenceInstitution.tgz](./6.4VanillaReferenceInstitution.tgz)
+and tracked with Git LFS. After cloning, run `git lfs install` and `git lfs pull`
+to download the archive rather than just its LFS pointer.
+Import it into the default database, using
+`http://localhost:8082/your-institution/` as its URL. Set its own administrator
+password; the institution superuser is `TLE_ADMINISTRATOR`. The admin page
+is not itself a content repository.
 
 See the [official installation guide](https://openequella.github.io/gettingstarted/InstallingEquella.html)
 for the institution import workflow. The guide's Java 8 prerequisite is old;
@@ -55,7 +63,7 @@ Switching browsers only helps if the other browser can complete or reject those 
 
 During system setup, openEQUELLA briefly restarts its embedded web server.
 After system setup, open **Databases** and click **Initialise** for the default
-schema before creating or importing an institution. If prompted to log in,
+schema before importing an institution. If prompted to log in,
 use the system password you just set.
 
 ## Operate
