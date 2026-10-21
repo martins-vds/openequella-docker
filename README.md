@@ -46,6 +46,12 @@ See the [official installation guide](https://openequella.github.io/gettingstart
 for the institution import workflow. The guide's Java 8 prerequisite is old;
 this release's Docker configuration uses Java 21.
 
+If **Install** hangs in VS Code's integrated browser, open
+<http://localhost:8082/admin/> in a regular browser and submit the form once.
+During system setup, openEQUELLA briefly restarts its embedded web server.
+If the setup screen does not advance afterward, revisit the admin URL and
+log in using the system password you just set to continue database migrations.
+
 ## Operate
 
 ```sh
